@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="robot" content="noindex,nofollow">
+    <style>
+        .ap-a-ico {
+            display: flex;
+            font-size: initial;
+            box-sizing: initial;
+            justify-content: center;
+            width: 1em;
+            height: 1em
+        }
+
+        html,
+        body {
+            background: none transparent;
+            width: 24px;
+            height: 24px;
+            overflow: hidden;
+        }
+
+        body {
+            margin: 0;
+            cursor: pointer;
+            transition: transform .3s;
+        }
+
+        /*svg {fill: #005af0;}*/
+
+        textarea {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .copy-script-icon--default,
+        .copy-script-icon--success {
+            position: absolute;
+            top: 3px;
+            transition: transform .3s;
+        }
+
+        .copy-script-icon--success {
+            opacity: 0;
+        }
+
+        .success {
+            transform: translate3d(0, 2px, 0);
+        }
+
+        .success .copy-script-icon--default {
+            opacity: 0;
+            transform: scale3d(0, 0.3, 0);
+        }
+
+        .success .copy-script-icon--success {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1"
+        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <defs>
+            <symbol id="checkmark" viewBox="0 0 100 100">
+                <path
+                    d="M88.738 21.999a3 3 0 00-1.781.812L34.926 70.968l-21.969-19.22a3.002 3.002 0 10-3.938 4.532l24 21a3 3 0 004-.062l54-50A3 3 0 0088.74 22z" />
+            </symbol>
+            <symbol id="clipboard" viewBox="0 0 512.15 512.15">
+                <path
+                    d="m492.63 80.607-61.013-61.013c-26.133-26.027-68.373-26.027-94.507 0l-109.97 110.08c-21.333 21.333-17.493 53.653 9.387 80.64 4.267 4.053 10.987 3.947 15.04-0.213 3.947-4.16 3.947-10.667 0-14.827-14.4-14.507-24.533-35.307-9.387-50.453l110.08-110.19c17.813-17.707 46.507-17.707 64.32 0l60.907 61.013c17.707 17.813 17.707 46.507 0 64.32l-109.97 110.08c-5.547 5.76-13.653 8.427-21.547 7.147-9.493-1.387-19.413-7.04-28.907-16.427-4.267-4.053-10.987-3.947-15.04 0.213-3.947 4.16-3.947 10.667 0 14.827 12.693 12.8 26.88 20.587 40.96 22.507 2.347 0.32 4.693 0.533 7.04 0.533 12.267 0 24-4.907 32.64-13.653l109.97-110.19c26.027-26.134 26.027-68.374 0-94.4z" />
+                <path
+                    d="m260.73 301.83c-4.16 4.16-4.16 10.88 0 15.147 14.507 14.507 24.533 35.307 9.387 50.453l-109.12 109.97c-8.427 8.533-19.947 13.333-32 13.333h-0.107c-12.053 0-23.573-4.693-32-13.227l-62.293-62.293c-17.707-17.813-17.6-46.507 0.107-64.213l109.97-109.12c15.147-15.147 36.053-5.12 50.453 9.387 4.267 4.053 10.987 3.947 15.147-0.213 3.947-4.16 3.947-10.667 0-14.827-26.88-26.88-59.413-30.72-80.64-9.387l-109.97 109.01c-26.133 26.027-26.24 68.267-0.213 94.4l62.293 62.293c12.48 12.48 29.44 19.52 47.147 19.52h0.106c17.707 0 34.773-7.04 47.147-19.627l109.01-109.97c21.333-21.333 17.6-53.76-9.387-80.64-4.053-4.266-10.879-4.266-15.039 0z" />
+                <path
+                    d="m155.99 356.23c4.16 4.16 10.88 4.16 15.04 0l185.17-185.17c4.053-4.267 3.947-10.987-0.213-15.04-4.16-3.947-10.667-3.947-14.827 0l-185.17 185.17c-4.16 4.16-4.16 10.88 0 15.04z" />
+            </symbol>
+        </defs>
+    </svg>
+    <div class="ap-a-ico copy-script-icon--default">
+        <svg>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#clipboard"></use>
+        </svg>
+    </div>
+    <div class="ap-a-ico copy-script-icon--success">
+        <svg>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#checkmark"></use>
+        </svg>
+    </div>
+    <textarea id="script-tag"></textarea>
+    <script>
+        const animationDuration = 1200;
+        const scriptTag = document.getElementById('script-tag');
+        const stringToCopy = decodeURIComponent(window.location.hash.substr(1));
+
+        scriptTag.value = stringToCopy;
+
+        document.addEventListener('click', () => {
+            scriptTag.select();
+            scriptTag.setSelectionRange(0, 99999);
+            document.execCommand('copy');
+
+            document.body.classList.add('success');
+            setTimeout(function () {
+                document.body.classList.remove('success');
+            }, animationDuration);
+        });
+    </script>
+</body>
+
+</html>
