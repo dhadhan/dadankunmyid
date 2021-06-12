@@ -3,7 +3,7 @@
 let discord = ["https://whiz.my.id"];
 let url = new URL(window.location.href); //new URL('http://www.test.com/t.html?a=1&b=3&c=m2-m3-m4-m5')
 let searchParams = new URLSearchParams(url.search);
-console.log(searchParams.get('c'));  // outputs "m2-m3-m4-m5"
+var ab = searchParams.get('c');  // outputs "m2-m3-m4-m5"
 document.getElementById("test1").innerHTML = searchParams.get('c');
-window.location.replace(c[0]);
+window.location.replace(ab[0]);
  </script>
